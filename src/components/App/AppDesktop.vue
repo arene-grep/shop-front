@@ -29,14 +29,14 @@
       </md-toolbar>
       <md-list class="md-triple-line">
         <md-list-item>
+          <div>
           <md-button class="md-list-action md-raised md-accent" @click="empty()">
             Empty
           </md-button>
-        </md-list-item>
-        <md-list-item>
           <md-button class="md-list-action md-dense md-raised md-primary" @click="buy()">
             Buy
           </md-button>
+          </div>
         </md-list-item>
         <div v-for="product in myProducts" :key="product.id">
           <md-list-item>
@@ -45,9 +45,14 @@
             </md-avatar>
             <div class="md-list-item-text">
               <span>{{ product.name }}</span>
-              <span>CHF {{ product.price }}</span>
-              <p v-if="product.stock==1">{{ product.stock }} pièce en stock</p>
-              <p v-else>{{ product.stock }} pièces en stock</p>
+              <span>Prix : CHF {{ product.price }}</span>
+              <p v-if="product.cpt==1">{{ product.cpt }} pièce dans le panier</p>
+              <p v-else>{{ product.cpt }} pièces dans le panier</p>
+            </div>
+            <div>
+              <md-button class="md-list-action md-raised md-accent" @click="removeProduct(product)">
+                Supprimer
+              </md-button>
             </div>
           </md-list-item>
           <md-divider class="md-inset"></md-divider>
@@ -62,7 +67,7 @@
 
 // Demo purposes only
 .md-drawer {
-  width: 230px;
+  width: 33%;
   max-width: calc(100vw - 125px);
 }
 
@@ -87,6 +92,9 @@ export default {
     ...mapGetters(['myProducts'])
   },
   methods: {
+    removeProduct: function (product) {
+      this.$store.commit('DELETE_PRODUCT', product)
+    },
     empty: function () {
       this.$store.commit('EMPTY_CART')
     },
