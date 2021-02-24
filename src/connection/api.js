@@ -1,26 +1,26 @@
-import $ from "jquery";
+import $ from 'jquery'
 
-//const APIENDPOINT = 'http://localhost:8000/api/'
-const APIENDPOINT = "https://api-arene.menopi.ch/api/";
+// const APIENDPOINT = 'http://localhost:8000/api/'
+const APIENDPOINT = 'https://api-arene.menopi.ch/api/'
 
-function getProducts() {
+function getProducts () {
   return $.ajax({
-    url: APIENDPOINT + "products",
-    method: "GET"
-  });
+    url: APIENDPOINT + 'products',
+    method: 'GET'
+  })
 }
 
-function getProduct(id) {
+function getProduct (id) {
   return $.ajax({
-    url: APIENDPOINT + "products/" + id,
-    method: "GET"
-  });
+    url: APIENDPOINT + 'products/' + id,
+    method: 'GET'
+  })
 }
 
-function addProduct(product) {
+function addProduct (product) {
   return $.ajax({
-    url: APIENDPOINT + "products",
-    method: "POST",
+    url: APIENDPOINT + 'products',
+    method: 'POST',
     data: {
       name: product.name,
       price: product.price,
@@ -30,20 +30,20 @@ function addProduct(product) {
       trading_card_game_id: product.tcg,
       language_id: product.language
     }
-  });
+  })
 }
 
-function deleteProduct(id) {
+function deleteProduct (id) {
   return $.ajax({
-    url: APIENDPOINT + "products/" + id,
-    method: "DELETE"
-  });
+    url: APIENDPOINT + 'products/' + id,
+    method: 'DELETE'
+  })
 }
 
-function updateProduct(id, product) {
+function updateProduct (id, product) {
   return $.ajax({
-    url: APIENDPOINT + "products/" + id,
-    method: "PUT",
+    url: APIENDPOINT + 'products/' + id,
+    method: 'PUT',
     data: {
       name: product.name,
       price: product.price,
@@ -53,52 +53,52 @@ function updateProduct(id, product) {
       trading_card_game_id: product.tcg,
       language_id: product.language
     }
-  });
+  })
 }
 
-function getEvents() {
+function getEvents () {
   return $.ajax({
-    url: APIENDPOINT + "events",
-    method: "GET"
-  });
+    url: APIENDPOINT + 'events',
+    method: 'GET'
+  })
 }
 
-function getEvent(id) {
+function getEvent (id) {
   return $.ajax({
-    url: APIENDPOINT + "events/" + id,
-    method: "GET"
-  });
+    url: APIENDPOINT + 'events/' + id,
+    method: 'GET'
+  })
 }
 
-function addEvent(event) {
+function addEvent (event) {
   return $.ajax({
-    url: APIENDPOINT + "events",
-    method: "POST",
+    url: APIENDPOINT + 'events',
+    method: 'POST',
     data: {
       name: event.name,
       trading_card_game_id: event.tcg,
       date: event.date
     }
-  });
+  })
 }
 
-function updateEvent(id, event) {
+function updateEvent (id, event) {
   return $.ajax({
-    url: APIENDPOINT + "events/" + id,
-    method: "PUT",
+    url: APIENDPOINT + 'events/' + id,
+    method: 'PUT',
     data: {
       name: event.name,
       trading_card_game_id: event.tcg,
       date: event.date
     }
-  });
+  })
 }
 
-function deleteEvent(id) {
+function deleteEvent (id) {
   return $.ajax({
-    url: APIENDPOINT + "events/" + id,
-    method: "DELETE"
-  });
+    url: APIENDPOINT + 'events/' + id,
+    method: 'DELETE'
+  })
 }
 
 export default {
@@ -112,4 +112,4 @@ export default {
   addEvent,
   deleteEvent,
   updateEvent
-};
+}
