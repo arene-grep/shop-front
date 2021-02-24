@@ -6,6 +6,12 @@ Vue.use(VueRouter)
 
 const routes = [
   { path: '/', redirect: '/home' },
+
+  {
+    path: '/products',
+    name: 'getProducts',
+    component: () => import('../views/Products/Products.vue')
+  },
   {
     path: '/Login',
     name: 'Login',
