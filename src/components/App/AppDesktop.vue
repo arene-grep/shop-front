@@ -31,10 +31,10 @@
         <md-list-item>
           <div>
           <md-button class="md-list-action md-raised md-accent" @click="empty()">
-            Empty
+            Vider
           </md-button>
           <md-button class="md-list-action md-dense md-raised md-primary" @click="buy()">
-            Buy
+            Afficher le panier
           </md-button>
           </div>
         </md-list-item>
@@ -46,15 +46,16 @@
             <div class="md-list-item-text">
               <span>{{ product.name }}</span>
               <span>Prix : CHF {{ product.price }}</span>
-              <p v-if="product.cpt==1">{{ product.cpt }} pièce dans le panier</p>
-              <p v-else>{{ product.cpt }} pièces dans le panier</p>
-            </div>
-            <div>
-              <md-button class="md-list-action md-raised md-accent" @click="removeProduct(product)">
-                Supprimer
-              </md-button>
+              <span>Dans panier : {{ product.cpt }}</span>
             </div>
           </md-list-item>
+          <div>
+            Quantité :
+            <input type="number" v-model="product.cpt" style="width: 15%;" min="1"/>
+            <md-button class="md-list-action md-raised md-accent" @click="removeProduct(product)">
+              Supprimer
+            </md-button>
+          </div>
           <md-divider class="md-inset"></md-divider>
         </div>
       </md-list>
@@ -67,7 +68,7 @@
 
 // Demo purposes only
 .md-drawer {
-  width: 33%;
+  width: 25%;
   max-width: calc(100vw - 125px);
 }
 
