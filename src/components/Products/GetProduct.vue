@@ -1,25 +1,33 @@
 <template>
-  <div>
+<div>
+  <div class="column">
+    <img src="../../assets/logo-arene.png" alt="Skyscraper">
+          <div class="md-layout md-gutter">
+            <div class="md-layout-item md-small-size-100">
+              <md-field>
+                Stock : {{ tmpProduct.stock }} pièces
+              </md-field>
+              <md-field>
+                <div class="card">
+                  Prix : CHF {{ tmpProduct.price }}
+                </div>
+                <div class="card">
+                  <input id="quantity" type="number" value="1" size="3">
+                </div>
+                 <div class="card">
+                  <md-button class="md-dense md-raised md-primary" @click="addCart()">Ajouter au panier</md-button>
+                </div>
+              </md-field>
+            </div>
+          </div>
+  </div>
+  <div class="column">
     <form novalidate class="md-layout" @submit.prevent="validateProduct">
       <md-card class="md-layout-item">
         <md-card-header>
           <div class="md-title">{{ tmpProduct.name }}</div>
         </md-card-header>
         <md-card-content>
-          <div class="md-layout md-gutter">
-            <div class="md-layout-item md-small-size-100">
-              <md-field>
-                Prix : CHF {{ tmpProduct.price }}
-              </md-field>
-            </div>
-          </div>
-          <div class="md-layout md-gutter">
-            <div class="md-layout-item md-small-size-100">
-              <md-field>
-                Stock : {{ tmpProduct.stock }} pièces
-              </md-field>
-            </div>
-          </div>
           <div class="md-layout md-gutter">
             <div class="md-layout-item md-small-size-100">
               <md-field>
@@ -42,14 +50,18 @@
             </div>
           </div>
         </md-card-content>
-        <div>
-          <md-card-actions>
-            <md-button class="md-dense md-raised md-primary" @click="addCart()">Ajouter au panier</md-button>
-          </md-card-actions>
-        </div>
+      </md-card>
+      <md-card class="description">
+        <md-field>
+          Description
+        </md-field>
+        <md-card-content>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque ea, nostrum odio. Dolores, sed accusantium quasi non, voluptas eius illo quas, saepe voluptate pariatur in deleniti minus sint. Excepturi.
+        </md-card-content>
       </md-card>
     </form>
   </div>
+</div>
 </template>
 
 <script>
@@ -110,5 +122,16 @@ export default {
   display: inline-block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.column {
+  float: left;
+  width: 50%;
+}
+
+.card{
+  float: left;
+  width: 33%;
+
 }
 </style>
