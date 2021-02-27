@@ -119,9 +119,14 @@ export default {
 }
 .md-card {
   max-width: 85%;
+  min-width: 85%;
   display: inline-block;
   margin-left: auto;
   margin-right: auto;
+}
+
+.md-layout {
+  height: 50%;
 }
 
 .column {

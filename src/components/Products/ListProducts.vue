@@ -117,8 +117,9 @@ export default {
   }
 .card {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
     grid-auto-rows: 320px;
+    row-gap: 20px;
     vertical-align: top;
     border: 1px solid rgba(#000, .12);
 }
