@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     nbProducts: 0,
-    products_cart: []
+    products_cart: [],
+    myTotalPrice: 0
   },
   getters: {
     myProducts: state => {
@@ -14,35 +15,53 @@ export default new Vuex.Store({
     },
     nbMyProducts: state => {
       return state.nbProducts
+    },
+    myTotalPrice: state => {
+      return state.myTotalPrice
     }
   },
   mutations: {
-    UPDATE_CART (state, product) {
+    UPDATE_CART (state) {
       state.nbProducts = 0
+      state.myTotalPrice = 0
       for (let i = 0; i < state.products_cart.length; i++) {
         state.nbProducts = state.nbProducts + parseInt(state.products_cart[i].cpt)
+        state.myTotalPrice = state.myTotalPrice + parseInt(state.products_cart[i].price) * parseInt(state.products_cart[i].cpt)
       }
     },
     ADD_PRODUCT (state, product) {
-      state.nbProducts++
+      console.log('le panier -> ')
+      console.log(state.products_cart)
+      console.log(product)
+      console.log('produit reçu en param -> ')
+      console.log(product)
       const index = state.products_cart.indexOf(product)
       if (index < 0) {
         state.products_cart.push(product)
       } else {
         state.products_cart[index].cpt = parseInt(product.cpt)
       }
-      // check si le produit y est déjà, si oui, afficher un compteur
+      state.nbProducts = 0
+      for (let i = 0; i < state.products_cart.length; i++) {
+        state.nbProducts = state.nbProducts + parseInt(state.products_cart[i].cpt)
+      }
+      state.myTotalPrice = 0
+      for (let i = 0; i < state.products_cart.length; i++) {
+        state.myTotalPrice = state.myTotalPrice + parseInt(state.products_cart[i].price) * parseInt(state.products_cart[i].cpt)
+      }
     },
     DELETE_PRODUCT (state, product) {
       const index = state.products_cart.indexOf(product)
       if (index > -1) {
         state.products_cart.splice(index, 1)
         state.nbProducts = state.nbProducts - product.cpt
+        state.myTotalPrice = state.myTotalPrice - parseInt(product.price)
       }
     },
     EMPTY_CART (state) {
       state.products_cart = []
       state.nbProducts = 0
+      state.myTotalPrice = 0
     }
   },
   actions: {

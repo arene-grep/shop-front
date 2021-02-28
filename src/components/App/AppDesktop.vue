@@ -84,6 +84,7 @@
 <script>
 
 import { mapGetters } from 'vuex'
+import router from '@/router'
 export default {
   name: 'LastRowFixed',
   data: () => ({
@@ -104,8 +105,8 @@ export default {
       this.$store.commit('EMPTY_CART')
     },
     buy: function () {
-      console.log('Buy : ')
-      console.log(this.myProducts)
+      router.push({ name: 'Cart' })
+      this.showSidepanel = false
     }
   }
 }

@@ -112,7 +112,6 @@ export default {
   },
   methods: {
     goProduct: function (id) {
-      console.log('test')
       router.push({ name: 'getProduct', params: id })
     },
     getProduct: function (id) {
@@ -122,8 +121,9 @@ export default {
         })
     },
     addCart: function (productsSelected) {
-      this.$store.commit('ADD_PRODUCT', productsSelected)
-      console.log(productsSelected)
+      if (productsSelected.cpt > 0) {
+        this.$store.commit('ADD_PRODUCT', productsSelected)
+      }
     },
     updateQuantity: function (product) {
       if (product.cpt > product.stock) { product.cpt = product.stock }
