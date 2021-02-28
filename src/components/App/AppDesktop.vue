@@ -6,8 +6,9 @@
           <div class="md-toolbar-section-start">
             <span class="md-title">L'Arène de Duel</span>
           </div>
-          <md-button class="md-icon-button" @click="showSidepanel = true">
+          <md-button @click="showSidepanel = true">
             <md-icon>shopping_cart</md-icon>
+            Panier ({{nbMyProducts}})
           </md-button>
         </div>
         <div class="md-toolbar-row" style="justify-content:center; ">
@@ -51,7 +52,7 @@
           </md-list-item>
           <div>
             Quantité :
-            <input type="number" v-model="product.cpt" style="width: 15%;" min="1"/>
+            <input type="number" v-model="product.cpt" style="width: 15%;" min="1" @input="updateCart(product)"/>
             <md-button class="md-list-action md-raised md-accent" @click="removeProduct(product)">
               Supprimer
             </md-button>
@@ -90,9 +91,12 @@ export default {
     showSidepanel: false
   }),
   computed: {
-    ...mapGetters(['myProducts'])
+    ...mapGetters(['myProducts', 'nbMyProducts'])
   },
   methods: {
+    updateCart (product) {
+      this.$store.commit('UPDATE_CART', product)
+    },
     removeProduct: function (product) {
       this.$store.commit('DELETE_PRODUCT', product)
     },
