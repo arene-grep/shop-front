@@ -30,16 +30,16 @@ export default new Vuex.Store({
       }
     },
     ADD_PRODUCT (state, product) {
-      console.log('le panier -> ')
-      console.log(state.products_cart)
-      console.log(product)
-      console.log('produit reçu en param -> ')
-      console.log(product)
-      const index = state.products_cart.indexOf(product)
-      if (index < 0) {
+      var myIndex = -1
+      for (let i = 0; i < state.products_cart.length; i++) {
+        if (state.products_cart[i].id === product.id) {
+          myIndex = i
+        }
+      }
+      if (myIndex === -1) {
         state.products_cart.push(product)
       } else {
-        state.products_cart[index].cpt = parseInt(product.cpt)
+        state.products_cart[myIndex].cpt = parseInt(product.cpt)
       }
       state.nbProducts = 0
       for (let i = 0; i < state.products_cart.length; i++) {
