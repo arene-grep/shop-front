@@ -47,10 +47,12 @@
     </div>
     <div class="card">
     <div v-for="product in products" :key="product.id">
-      <md-card>
-        <md-card-media-cover md-solid>
+      <md-card md-with-hover>
+        <md-card-media-cover md-solid >
           <md-card-media md-ratio="1:1">
+            <h2 @click="$router.push({ name: 'getProduct', params: {id: product.id } })">
               <img src="../../assets/logo-arene.png" alt="Skyscraper">
+            </h2>
             </md-card-media>
              <md-card-area>
                 <md-card-header>
@@ -72,7 +74,7 @@
 </template>
 <script>
 import api from '../../connection/api.js'
-
+import router from '@/router'
 export default {
   name: 'TripleLine',
   data: () => {
@@ -92,6 +94,10 @@ export default {
       })
   },
   methods: {
+    goProduct: function (id) {
+      console.log('test')
+      router.push({ name: 'getProduct', params: id })
+    },
     getProduct: function (id) {
       api.getProduct(id)
         .done((data) => {
