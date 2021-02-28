@@ -101,6 +101,27 @@ function deleteEvent (id) {
   })
 }
 
+function getCategories () {
+  return $.ajax({
+    url: APIENDPOINT + 'categories',
+    method: 'GET'
+  })
+}
+
+function getTcgames () {
+  return $.ajax({
+    url: APIENDPOINT + 'tcgames',
+    method: 'GET'
+  })
+}
+
+function getLanguages () {
+  return $.ajax({
+    url: APIENDPOINT + 'languages',
+    method: 'GET'
+  })
+}
+
 export default {
   getProducts,
   getProduct,
@@ -111,5 +132,8 @@ export default {
   getEvent,
   addEvent,
   deleteEvent,
-  updateEvent
+  updateEvent,
+  getCategories,
+  getTcgames,
+  getLanguages
 }

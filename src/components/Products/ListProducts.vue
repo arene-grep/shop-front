@@ -5,9 +5,9 @@
       <div class="md-layout-item">
         <md-field>
           <label for="tcg">TCG</label>
-          <md-select v-model="tcg" name="tcg" id="tcg">
-            <md-option value="Yu-Gi-Oh">Yu-Gi-Oh</md-option>
-            <md-option value="Dragonball">Dragonball</md-option>
+          <md-select  name="tcg" id="tcg">
+            <md-option value="all">Tous</md-option>
+            <md-option v-for="tcgames in tcgames" :key="tcgames.id" :value=" tcgames.name ">{{ tcgames.name }}</md-option>
           </md-select>
         </md-field>
       </div>
@@ -16,9 +16,8 @@
         <md-field>
           <label for="product_type">Type de produit</label>
           <md-select v-model="product_type" name="product_type" id="product_type">
-            <md-option value="booster">Booster à l'unité</md-option>
-            <md-option value="booster_box">Boite de boosters</md-option>
-            <md-option value="deck">Deck</md-option>
+            <md-option value="all">Tous</md-option>
+            <md-option v-for="categories in categories" :key="categories.id" :value=" categories.name ">{{ categories.name }}</md-option>
           </md-select>
         </md-field>
       </div>
@@ -49,8 +48,8 @@
     <div v-for="product in products" :key="product.id">
       <md-card>
         <md-card-media-cover md-solid>
-          <md-card-media md-ratio="1:1">
-              <img src="../../assets/logo-arene.png" alt="Skyscraper">
+          <md-card-media md-ratio="1:1" >
+              <img src="../../assets/logo-arene.png" alt="Skyscraper" >
             </md-card-media>
              <md-card-area>
                 <md-card-header>
@@ -58,8 +57,8 @@
                  <span>PRIX : {{ product.price }} CHF</span>
                 </md-card-header>
                <md-card-actions>
-                  <input id="quantity" type="number" value="1" size="3">
-                  <md-button class="md-icon-button">
+                  <input id="quantity" type="number" v-model="product.cpt" min="1" size="3" :max=" product.stock " @input="updateQuantity(product)">
+                  <md-button class="md-icon-button" @click="addCart(product)">
                     <md-icon>shopping_cart</md-icon>
                   </md-button>
                 </md-card-actions>
@@ -78,13 +77,31 @@ export default {
   data: () => {
     return {
       products: [],
-      selectedProducts: []
+      selectedProducts: [],
+      categories: [],
+      tcgames: []
     }
   },
   beforeMount () {
     api.getProducts()
       .done((data) => {
         this.products = data
+      })
+      .fail(() => {
+      })
+      .always(() => {
+      })
+    api.getCategories()
+      .done((data) => {
+        this.categories = data
+      })
+      .fail(() => {
+      })
+      .always(() => {
+      })
+    api.getTcgames()
+      .done((data) => {
+        this.tcgames = data
       })
       .fail(() => {
       })
@@ -99,8 +116,11 @@ export default {
         })
     },
     addCart: function (productsSelected) {
-      this.$store.commit('UPDATE_CART', productsSelected)
+      this.$store.commit('ADD_PRODUCT', productsSelected)
       console.log(productsSelected)
+    },
+    updateQuantity: function (product) {
+      if (product.cpt > product.stock) { product.cpt = product.stock }
     }
   }
 }

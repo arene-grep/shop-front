@@ -12,10 +12,10 @@
                   Prix : CHF {{ tmpProduct.price }}
                 </div>
                 <div class="card">
-                  <input id="quantity" type="number" value="1" size="3">
+                  <input id="quantity" type="number" v-model="tmpProduct.cpt" min="1" size="3" :max=" tmpProduct.stock " @input="updateQuantity(tmpProduct)">
                 </div>
                  <div class="card">
-                  <md-button class="md-dense md-raised md-primary" @click="addCart()">Ajouter au panier</md-button>
+                  <md-button class="md-dense md-raised md-primary" @click="addCart(tmpProduct)">Ajouter au panier</md-button>
                 </div>
               </md-field>
             </div>
@@ -31,21 +31,21 @@
           <div class="md-layout md-gutter">
             <div class="md-layout-item md-small-size-100">
               <md-field>
-                TCG : {{ tmpProduct.trading_card_game_id }}
+                TCG : {{ tcgames[tmpProduct.trading_card_game_id].name }}
               </md-field>
             </div>
           </div>
           <div class="md-layout md-gutter">
             <div class="md-layout-item md-small-size-100">
               <md-field>
-                Catégorie : {{ tmpProduct.category_id }}
+                Catégorie : {{ categories[tmpProduct.category_id].name }}
               </md-field>
             </div>
           </div>
           <div class="md-layout md-gutter">
             <div class="md-layout-item md-small-size-100">
               <md-field>
-                Langue : {{ tmpProduct.language_id }}
+                Langue : {{ languages[tmpProduct.language_id].name }}
               </md-field>
             </div>
           </div>
@@ -86,12 +86,24 @@ export default {
       tcg: null,
       category: null,
       language: null
-    }
+    },
+    categories: [],
+    tcgames: [],
+    languages: []
   }),
   methods: {
     addCart: function () {
       this.$store.commit('ADD_PRODUCT', this.tmpProduct)
     }
+  },
+  updateQuantity: function (tmpProduct) {
+    if (tmpProduct.cpt > tmpProduct.stock) { tmpProduct.cpt = tmpProduct.stock }
+  },
+  getProduct: function (id) {
+    api.getProduct(id)
+      .done((data) => {
+        console.log(data)
+      })
   },
   beforeMount () {
     this.idProduct = this.$route.params.id
@@ -105,6 +117,30 @@ export default {
         this.form.tcg = data.trading_card_game_id
         this.form.category = data.category_id
         this.form.language = data.language_id
+      })
+    api.getCategories()
+      .done((data) => {
+        this.categories = data
+      })
+      .fail(() => {
+      })
+      .always(() => {
+      })
+    api.getTcgames()
+      .done((data) => {
+        this.tcgames = data
+      })
+      .fail(() => {
+      })
+      .always(() => {
+      })
+    api.getLanguages()
+      .done((data) => {
+        this.languages = data
+      })
+      .fail(() => {
+      })
+      .always(() => {
       })
   }
 }

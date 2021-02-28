@@ -27,10 +27,9 @@ export default new Vuex.Store({
       state.nbProducts++
       const index = state.products_cart.indexOf(product)
       if (index < 0) {
-        product.cpt = 1
         state.products_cart.push(product)
       } else {
-        product.cpt++
+        state.products_cart[index].cpt = parseInt(product.cpt)
       }
       // check si le produit y est déjà, si oui, afficher un compteur
     },
