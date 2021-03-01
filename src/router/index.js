@@ -37,12 +37,23 @@ const routes = [
   {
     path: '/mycart',
     name: 'Cart',
-    component: Cart
+    component: Cart,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/about',
     name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    component: () => import('../views/About.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/account',
+    name: 'Account',
+    component: () => import('../views/Login/Account.vue'),
     meta: {
       requiresAuth: true
     }

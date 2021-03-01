@@ -22,7 +22,7 @@
         </md-list-item>
         <md-list-item to="/events" @click="showNavigation = false">
           <md-icon>event</md-icon>
-          <span class="md-list-item-text">Afficher vos évènements</span>
+          <span class="md-list-item-text">Afficher vos événements</span>
         </md-list-item>
       </md-list>
     </md-drawer>

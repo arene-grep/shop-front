@@ -33,12 +33,20 @@
         <md-progress-bar md-mode="indeterminate" v-if="sending" />
 
         <md-card-actions>
-          <md-button type="submit" class="md-primary" :disabled="sending">Register</md-button>
+          <md-button type="submit" class="md-primary" :disabled="sending">Login</md-button>
         </md-card-actions>
       </md-card>
-
       <md-snackbar :md-active.sync="userSaved">The user {{ lastUser }} was saved with success!</md-snackbar>
     </form>
+
+    <br>
+    <div>
+      Vous pouvez vous connecter en cliquant <router-link to="/register">ici</router-link>
+    </div>
+    <md-dialog-alert
+      :md-active.sync="badLogin"
+      md-content="Utilisateur ou mot de passe erroné"
+      md-confirm-text="Réessayer" />
   </div>
 </template>
 
@@ -53,6 +61,7 @@ export default {
   name: 'LoginForm',
   mixins: [validationMixin],
   data: () => ({
+    badLogin: false,
     form: {
       username: null,
       password: null
@@ -89,12 +98,17 @@ export default {
       this.form.password = null
     },
     saveUser () {
+      var _this = this
       this.sending = true
       const email = this.form.username
       const password = this.form.password
       this.$store.dispatch('login', { email, password })
         .then(() => this.$router.push('/'))
-        .catch(err => console.log(err))
+        .catch(function (error) {
+          console.log(error)
+          _this.badLogin = true
+          _this.sending = false
+        })
     },
     validateUser () {
       this.$v.$touch()

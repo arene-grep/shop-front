@@ -15,10 +15,8 @@
           <md-tabs class="md-primary">
             <md-tab id="tab-home" md-label="Accueil" to="/home"></md-tab>
             <md-tab id="tab-products" md-label="Produits" to="/products"></md-tab>
-            <md-tab id="tab-events" md-label="Évènements" to="/events"></md-tab>
-            <md-tab id="tab-login" md-label="Login" to="/login"></md-tab>
-            <md-tab id="tab-register" md-label="Register" to="/register"></md-tab>
-            <md-tab id="tab-about" md-label="About" to="/about"></md-tab>
+            <md-tab id="tab-events" md-label="Événements" to="/events"></md-tab>
+            <md-tab id="tab-account" md-label="Account" to="/account"></md-tab>
             <md-tab id="tab-logout" md-label="Logout" @click="logout" v-if="isLoggedIn" ></md-tab>
           </md-tabs>
         </div>
