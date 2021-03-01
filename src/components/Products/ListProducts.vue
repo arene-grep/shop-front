@@ -46,8 +46,8 @@
     </div>
     <div class="card">
       <!-- <div v-for="product in products" :key="product.id">-->
-      <!-- pour en afficher que 10 -->
-      <div v-for="product in products.slice(0,10) " :key="product.id">
+      <!-- pour en afficher que 30 -->
+      <div v-for="product in products.slice(0,30) " :key="product.id">
       <md-card md-with-hover>
         <md-card-media-cover md-solid >
           <md-card-media md-ratio="1:1">
