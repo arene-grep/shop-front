@@ -90,14 +90,11 @@ export default {
     },
     saveUser () {
       this.sending = true
-
-      // Instead of this timeout, here you can call your API
-      window.setTimeout(() => {
-        this.lastUser = `${this.form.username} ${this.form.password}`
-        this.userSaved = true
-        this.sending = false
-        this.clearForm()
-      }, 1500)
+      const email = this.form.username
+      const password = this.form.password
+      this.$store.dispatch('login', { email, password })
+        .then(() => this.$router.push('/'))
+        .catch(err => console.log(err))
     },
     validateUser () {
       this.$v.$touch()

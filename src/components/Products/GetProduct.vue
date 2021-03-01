@@ -27,29 +27,29 @@
         <md-card-header>
           <div class="md-title">{{ tmpProduct.name }}</div>
         </md-card-header>
-        <md-card-content>
-          <div class="md-layout md-gutter">
-            <div class="md-layout-item md-small-size-100">
-              <md-field>
-                TCG : {{ tcgames[tmpProduct.trading_card_game_id].name }}
-              </md-field>
-            </div>
-          </div>
-          <div class="md-layout md-gutter">
-            <div class="md-layout-item md-small-size-100">
-              <md-field>
-                Catégorie : {{ categories[tmpProduct.category_id].name }}
-              </md-field>
-            </div>
-          </div>
-          <div class="md-layout md-gutter">
-            <div class="md-layout-item md-small-size-100">
-              <md-field>
-                Langue : {{ languages[tmpProduct.language_id].name }}
-              </md-field>
-            </div>
-          </div>
-        </md-card-content>
+<!--        <md-card-content>-->
+<!--          <div class="md-layout md-gutter">-->
+<!--            <div class="md-layout-item md-small-size-100">-->
+<!--              <md-field>-->
+<!--                TCG : {{ tcgames[tmpProduct.trading_card_game_id].name }}-->
+<!--              </md-field>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="md-layout md-gutter">-->
+<!--            <div class="md-layout-item md-small-size-100">-->
+<!--              <md-field>-->
+<!--                Catégorie : {{ categories[tmpProduct.category_id].name }}-->
+<!--              </md-field>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="md-layout md-gutter">-->
+<!--            <div class="md-layout-item md-small-size-100">-->
+<!--              <md-field>-->
+<!--                Langue : {{ languages[tmpProduct.language_id].name }}-->
+<!--              </md-field>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </md-card-content>-->
       </md-card>
       <md-card class="description">
         <md-field>

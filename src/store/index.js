@@ -1,13 +1,20 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
+
+// const APIENDPOINT = 'http://localhost:8000/api/'
+const APIENDPOINT = 'https://api-arene.menopi.ch/api/'
 
 export default new Vuex.Store({
   state: {
     nbProducts: 0,
     products_cart: [],
-    myTotalPrice: 0
+    myTotalPrice: 0,
+    status: '',
+    token: localStorage.getItem('token') || '',
+    user: {}
   },
   getters: {
     myProducts: state => {
@@ -18,7 +25,9 @@ export default new Vuex.Store({
     },
     myTotalPrice: state => {
       return state.myTotalPrice
-    }
+    },
+    isLoggedIn: state => !!state.token,
+    authStatus: state => state.status
   },
   mutations: {
     UPDATE_CART (state) {
@@ -62,9 +71,71 @@ export default new Vuex.Store({
       state.products_cart = []
       state.nbProducts = 0
       state.myTotalPrice = 0
+    },
+    auth_request (state) {
+      state.status = 'loading'
+    },
+    auth_success (state, token, user) {
+      state.status = 'success'
+      state.token = token
+      state.user = user
+    },
+    auth_error (state) {
+      state.status = 'error'
+    },
+    logout (state) {
+      state.status = ''
+      state.token = ''
     }
   },
   actions: {
+    login ({ commit }, user) {
+      return new Promise((resolve, reject) => {
+        commit('auth_request')
+        axios({ url: APIENDPOINT + 'login', data: user, method: 'POST' })
+          .then(resp => {
+            const token = resp.data.token
+            const user = resp.data.user
+            localStorage.setItem('token', token)
+            axios.defaults.headers.common.Authorization = token
+            commit('auth_success', token, user)
+            resolve(resp)
+          })
+          .catch(err => {
+            commit('auth_error')
+            localStorage.removeItem('token')
+            reject(err)
+          })
+      })
+    },
+    register ({ commit }, user) {
+      return new Promise((resolve, reject) => {
+        commit('auth_request')
+        axios({ url: APIENDPOINT + 'register', data: user, method: 'POST' })
+          .then(resp => {
+            const token = resp.data.token
+            const user = resp.data.user
+            localStorage.setItem('token', token)
+            axios.defaults.headers.common.Authorization = token
+            commit('auth_success', token, user)
+            resolve(resp)
+            window.location.reload()
+          })
+          .catch(err => {
+            commit('auth_error', err)
+            localStorage.removeItem('token')
+            reject(err)
+          })
+      })
+    },
+    logout ({ commit }) {
+      return new Promise((resolve, reject) => {
+        commit('logout')
+        localStorage.removeItem('token')
+        delete axios.defaults.headers.common.Authorization
+        resolve()
+      })
+    }
   },
   modules: {
   }

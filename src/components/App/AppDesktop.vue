@@ -18,6 +18,8 @@
             <md-tab id="tab-events" md-label="Évènements" to="/events"></md-tab>
             <md-tab id="tab-login" md-label="Login" to="/login"></md-tab>
             <md-tab id="tab-register" md-label="Register" to="/register"></md-tab>
+            <md-tab id="tab-about" md-label="About" to="/about"></md-tab>
+            <md-tab id="tab-logout" md-label="Logout" @click="logout" v-if="isLoggedIn" ></md-tab>
           </md-tabs>
         </div>
       </md-app-toolbar>
@@ -92,9 +94,16 @@ export default {
     showSidepanel: false
   }),
   computed: {
-    ...mapGetters(['myProducts', 'nbMyProducts'])
+    ...mapGetters(['myProducts', 'nbMyProducts']),
+    isLoggedIn: function () { return this.$store.getters.isLoggedIn }
   },
   methods: {
+    logout: function () {
+      this.$store.dispatch('logout')
+        .then(() => {
+          this.$router.push('/login')
+        })
+    },
     updateCart (product) {
       this.$store.commit('UPDATE_CART', product)
     },

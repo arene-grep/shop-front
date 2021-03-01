@@ -58,7 +58,6 @@ import {
   required,
   minLength
 } from 'vuelidate/lib/validators'
-import api from '@/connection/api'
 
 export default {
   name: 'RegisterForm',
@@ -107,15 +106,19 @@ export default {
     },
     saveUser () {
       this.sending = true
-      this.user.name = this.form.name
-      this.user.email = this.form.email
-      this.user.password = this.form.password
-
-      api.registerUser(this.user)
-        .done((data) => {
-          window.location.pathname = '/home'
-          console.log(data)
-        })
+      const data = {
+        name: this.form.name,
+        email: this.form.email,
+        password: this.form.password
+      }
+      this.$store.dispatch('register', data)
+        .then(() => this.$router.push('/'))
+        .catch(err => console.log(err))
+      // api.registerUser(this.user)
+      //   .done((data) => {
+      //     window.location.pathname = '/home'
+      //     console.log(data)
+      //   })
     },
     validateUser () {
       this.$v.$touch()
