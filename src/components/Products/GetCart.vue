@@ -27,7 +27,7 @@
             </md-button>
           </md-table-cell>
         </md-table-row>
-        <h4 style="float: right; margin-top: 10%; margin-right: 25%">
+        <h4 style="float: right; margin-top: 10%; margin-right: 25%" v-if="myProducts.length>0">
             Prix total : {{ myTotalPrice }} CHF
         </h4>
         <div style="margin-top: 15%">

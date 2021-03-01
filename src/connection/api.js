@@ -17,45 +17,6 @@ function getProduct (id) {
   })
 }
 
-function addProduct (product) {
-  return $.ajax({
-    url: APIENDPOINT + 'products',
-    method: 'POST',
-    data: {
-      name: product.name,
-      price: product.price,
-      stock: product.stock,
-      minimum_stock: product.minimum_stock,
-      category_id: product.category,
-      trading_card_game_id: product.tcg,
-      language_id: product.language
-    }
-  })
-}
-
-function deleteProduct (id) {
-  return $.ajax({
-    url: APIENDPOINT + 'products/' + id,
-    method: 'DELETE'
-  })
-}
-
-function updateProduct (id, product) {
-  return $.ajax({
-    url: APIENDPOINT + 'products/' + id,
-    method: 'PUT',
-    data: {
-      name: product.name,
-      price: product.price,
-      stock: product.stock,
-      minimum_stock: product.minimum_stock,
-      category_id: product.category,
-      trading_card_game_id: product.tcg,
-      language_id: product.language
-    }
-  })
-}
-
 function getEvents () {
   return $.ajax({
     url: APIENDPOINT + 'events',
@@ -67,30 +28,6 @@ function getEvent (id) {
   return $.ajax({
     url: APIENDPOINT + 'events/' + id,
     method: 'GET'
-  })
-}
-
-function addEvent (event) {
-  return $.ajax({
-    url: APIENDPOINT + 'events',
-    method: 'POST',
-    data: {
-      name: event.name,
-      trading_card_game_id: event.tcg,
-      date: event.date
-    }
-  })
-}
-
-function updateEvent (id, event) {
-  return $.ajax({
-    url: APIENDPOINT + 'events/' + id,
-    method: 'PUT',
-    data: {
-      name: event.name,
-      trading_card_game_id: event.tcg,
-      date: event.date
-    }
   })
 }
 
@@ -122,18 +59,38 @@ function getLanguages () {
   })
 }
 
+function registerUser (user) {
+  return $.ajax({
+    url: APIENDPOINT + 'register',
+    method: 'POST',
+    data: {
+      name: user.name,
+      email: user.email,
+      password: user.password
+    }
+  })
+}
+
+function loginUser (user) {
+  return $.ajax({
+    url: APIENDPOINT + 'login',
+    method: 'POST',
+    data: {
+      email: user.email,
+      password: user.password
+    }
+  })
+}
+
 export default {
   getProducts,
   getProduct,
-  addProduct,
-  deleteProduct,
-  updateProduct,
   getEvents,
   getEvent,
-  addEvent,
   deleteEvent,
-  updateEvent,
   getCategories,
   getTcgames,
-  getLanguages
+  getLanguages,
+  registerUser,
+  loginUser
 }
