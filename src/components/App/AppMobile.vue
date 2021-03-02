@@ -18,11 +18,23 @@
         </md-list-item>
         <md-list-item to="/products" @click="showNavigation = false">
           <md-icon>shopping_cart</md-icon>
-          <span class="md-list-item-text">Afficher vos produits</span>
+          <span class="md-list-item-text">Produits</span>
         </md-list-item>
         <md-list-item to="/events" @click="showNavigation = false">
           <md-icon>event</md-icon>
-          <span class="md-list-item-text">Afficher vos événements</span>
+          <span class="md-list-item-text">Événements</span>
+        </md-list-item>
+        <md-list-item to="/account" @click="showNavigation = false">
+          <md-icon>account_box</md-icon>
+          <span class="md-list-item-text">Mon compte</span>
+        </md-list-item>
+        <md-list-item to="/mycart" @click="showNavigation = false">
+          <md-icon>shopping_cart</md-icon>
+          <span class="md-list-item-text">Mon panier</span>
+        </md-list-item>
+        <md-list-item to="/login" @click="logout" v-if="isLoggedIn" >
+          <md-icon>logout</md-icon>
+          <span class="md-list-item-text">Logout</span>
         </md-list-item>
       </md-list>
     </md-drawer>
@@ -38,7 +50,19 @@ export default {
   name: 'Temporary',
   data: () => ({
     showNavigation: false
-  })
+  }),
+  computed: {
+    isLoggedIn: function () { return this.$store.getters.isLoggedIn }
+  },
+  methods: {
+    logout: function () {
+      this.showNavigation = false
+      this.$store.dispatch('logout')
+        .then(() => {
+          this.$router.push('/login')
+        })
+    }
+  }
 }
 </script>
 

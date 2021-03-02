@@ -28,6 +28,7 @@
       <md-toolbar class="md-transparent" md-elevation="0">
         <span class="md-title">Panier</span>
       </md-toolbar>
+      <h3>Prix total {{ myTotalPrice }} CHF</h3>
       <md-list class="md-triple-line">
         <md-list-item>
           <div>
@@ -46,7 +47,7 @@
             </md-avatar>
             <div class="md-list-item-text">
               <span>{{ product.name }}</span>
-              <span>Prix : CHF {{ product.price }}</span>
+              <span>Prix unitaire : CHF {{ product.price }}</span>
               <span>Dans panier : {{ product.cpt }}</span>
             </div>
           </md-list-item>
@@ -92,7 +93,7 @@ export default {
     showSidepanel: false
   }),
   computed: {
-    ...mapGetters(['myProducts', 'nbMyProducts']),
+    ...mapGetters(['myProducts', 'nbMyProducts', 'myTotalPrice']),
     isLoggedIn: function () { return this.$store.getters.isLoggedIn }
   },
   methods: {

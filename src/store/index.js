@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
@@ -8,12 +9,13 @@ Vue.use(Vuex)
 const APIENDPOINT = 'https://api-arene.menopi.ch/api/'
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
     nbProducts: 0,
     products_cart: [],
     myTotalPrice: 0,
     status: '',
-    token: localStorage.getItem('token') || '',
+    token: localStorage.getItem('token'),
     user: {}
   },
   getters: {
@@ -46,14 +48,13 @@ export default new Vuex.Store({
         }
       }
       if (myIndex === -1) {
+        product.cpt = 0
+        product.cpt++
         state.products_cart.push(product)
       } else {
-        state.products_cart[myIndex].cpt = parseInt(product.cpt)
+        product.cpt++
       }
-      state.nbProducts = 0
-      for (let i = 0; i < state.products_cart.length; i++) {
-        state.nbProducts = state.nbProducts + parseInt(state.products_cart[i].cpt)
-      }
+      state.nbProducts++
       state.myTotalPrice = 0
       for (let i = 0; i < state.products_cart.length; i++) {
         state.myTotalPrice = state.myTotalPrice + parseInt(state.products_cart[i].price) * parseInt(state.products_cart[i].cpt)

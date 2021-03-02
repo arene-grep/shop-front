@@ -1,5 +1,8 @@
 <template>
   <div>
+    <md-dialog-alert
+      :md-active.sync="validateAdd"
+      md-title="Article ajouté au panier"/>
     <div>
     <div class="md-layout md-gutter">
       <div class="md-layout-item">
@@ -61,7 +64,6 @@
                  <span>PRIX : {{ product.price }} CHF</span>
                 </md-card-header>
                <md-card-actions>
-                  <input id="quantity" type="number" v-model="product.cpt" min="1" size="3" :max=" product.stock " @input="updateQuantity(product)">
                   <md-button class="md-icon-button" @click="addCart(product)">
                     <md-icon>shopping_cart</md-icon>
                   </md-button>
@@ -80,6 +82,7 @@ export default {
   name: 'TripleLine',
   data: () => {
     return {
+      validateAdd: false,
       products: [],
       selectedProducts: [],
       categories: [],
@@ -123,9 +126,8 @@ export default {
         })
     },
     addCart: function (productsSelected) {
-      if (productsSelected.cpt > 0) {
-        this.$store.commit('ADD_PRODUCT', productsSelected)
-      }
+      this.$store.commit('ADD_PRODUCT', productsSelected)
+      this.validateAdd = true
     },
     updateQuantity: function (product) {
       if (product.cpt > product.stock) { product.cpt = product.stock }
