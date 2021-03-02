@@ -10,6 +10,7 @@
           <md-table-head>Prix total</md-table-head>
         </md-table-row>
         <md-table-row v-for="product in myProducts" :key="product.id">
+          <div @click="goProduct(product)">
           <md-table-cell>
             <md-avatar>
               <img src="../../assets/logo-arene.png">
@@ -26,6 +27,7 @@
               Supprimer
             </md-button>
           </md-table-cell>
+          </div>
         </md-table-row>
         <h4 style="float: right; margin-top: 10%; margin-right: 25%" v-if="myProducts.length>0">
             Prix total : {{ myTotalPrice }} CHF
@@ -49,6 +51,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import router from '@/router'
 
 export default {
   name: 'GetCart',
@@ -61,6 +64,9 @@ export default {
     ...mapGetters(['myProducts', 'nbMyProducts', 'myTotalPrice'])
   },
   methods: {
+    goProduct: function (product) {
+      router.push({ name: 'getProduct', params: product.id })
+    },
     removeProduct: function (product) {
       this.$store.commit('DELETE_PRODUCT', product)
     },
