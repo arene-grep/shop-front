@@ -10,7 +10,6 @@
           <md-table-head>Prix total</md-table-head>
         </md-table-row>
         <md-table-row v-for="product in myProducts" :key="product.id">
-          <div @click="goProduct(product)">
           <md-table-cell>
             <md-avatar>
               <img src="../../assets/logo-arene.png">
@@ -27,10 +26,9 @@
               Supprimer
             </md-button>
           </md-table-cell>
-          </div>
         </md-table-row>
         <h4 style="float: right; margin-top: 10%; margin-right: 25%" v-if="myProducts.length>0">
-            Prix total : {{ myTotalPrice }} CHF
+          Prix total : {{ myTotalPrice }} CHF
         </h4>
         <div style="margin-top: 15%">
           <div>

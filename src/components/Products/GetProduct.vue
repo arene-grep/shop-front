@@ -12,7 +12,7 @@
                   Prix : CHF {{ tmpProduct.price }}
                 </div>
                 <div class="card">
-                  <input id="quantity" type="number" v-model="tmpProduct.cpt" min="1" size="3" :max=" tmpProduct.stock " @input="updateQuantity(tmpProduct)">
+                  <input id="quantity" type="number" value="1" min="1" size="3" :max=" tmpProduct.stock " @input="updateQuantity(tmpProduct)">
                 </div>
                  <div class="card">
                   <md-button class="md-dense md-raised md-primary" @click="addCart(tmpProduct)">Ajouter au panier</md-button>
@@ -93,19 +93,14 @@ export default {
   }),
   methods: {
     addCart: function () {
+      this.tmpProduct.nb = document.getElementById('quantity').value
       this.$store.commit('ADD_PRODUCT', this.tmpProduct)
+    },
+    updateQuantity: function (tmpProduct) {
+      if (tmpProduct.cpt > tmpProduct.stock) { tmpProduct.cpt = tmpProduct.stock }
     }
   },
-  updateQuantity: function (tmpProduct) {
-    if (tmpProduct.cpt > tmpProduct.stock) { tmpProduct.cpt = tmpProduct.stock }
-  },
-  getProduct: function (id) {
-    api.getProduct(id)
-      .done((data) => {
-        console.log(data)
-      })
-  },
-  beforeMount () {
+  mounted () {
     this.idProduct = this.$route.params.id
     api.getProduct(this.idProduct)
       .done((data) => {
@@ -114,9 +109,9 @@ export default {
         this.form.price = data.price
         this.form.stock = data.stock
         this.form.minimum_stock = data.minimum_stock
-        this.form.tcg = data.trading_card_game_id
-        this.form.category = data.category_id
-        this.form.language = data.language_id
+        // this.form.tcg = data.trading_card_game_id
+        // this.form.category = data.category_id
+        // this.form.language = data.language_id
       })
     api.getCategories()
       .done((data) => {

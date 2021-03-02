@@ -49,12 +49,24 @@ export default new Vuex.Store({
       }
       if (myIndex === -1) {
         product.cpt = 0
-        product.cpt++
+        if (product.nb > 1) {
+          product.cpt = parseInt(product.nb)
+          state.nbProducts = parseInt(state.nbProducts) + parseInt(product.nb)
+        } else {
+          product.cpt = 1
+          state.nbProducts++
+        }
         state.products_cart.push(product)
       } else {
-        product.cpt++
+        const myProduct = state.products_cart[myIndex]
+        if (product.nb > 1) {
+          myProduct.cpt = parseInt(myProduct.cpt) + parseInt(product.nb)
+          state.nbProducts = parseInt(state.nbProducts) + parseInt(product.nb)
+        } else {
+          myProduct.cpt++
+          state.nbProducts++
+        }
       }
-      state.nbProducts++
       state.myTotalPrice = 0
       for (let i = 0; i < state.products_cart.length; i++) {
         state.myTotalPrice = state.myTotalPrice + parseInt(state.products_cart[i].price) * parseInt(state.products_cart[i].cpt)
