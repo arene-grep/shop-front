@@ -1,5 +1,6 @@
 <template>
   <div id="nav">
+    <notifications position="top right" duration="1" speed="100" width="75%" max="2" style="padding:2%"/>
   <div class="page-container md-layout-column">
     <md-toolbar class="md-primary" style="position: fixed; z-index: 10;">
       <md-button class="md-icon-button" @click="showNavigation = true">

@@ -95,6 +95,11 @@ export default {
     addCart: function () {
       this.tmpProduct.nb = document.getElementById('quantity').value
       this.$store.commit('ADD_PRODUCT', this.tmpProduct)
+      this.$notify({
+        title: '',
+        text: this.tmpProduct.name + ' a été ajouté au panier',
+        type: 'success'
+      })
     },
     updateQuantity: function (tmpProduct) {
       if (tmpProduct.cpt > tmpProduct.stock) { tmpProduct.cpt = tmpProduct.stock }

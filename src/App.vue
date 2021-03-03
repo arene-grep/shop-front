@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import AppMobile from '@/components/App/AppMobile'
+import AppMobile from '@/components/Mobile/AppMobile'
 import AppDesktop from '@/components/App/AppDesktop'
 
 export default {

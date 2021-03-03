@@ -1,8 +1,5 @@
 <template>
   <div>
-    <md-dialog-alert
-      :md-active.sync="validateAdd"
-      md-title="Article ajouté au panier"/>
     <div>
     <div class="md-layout md-gutter">
       <div class="md-layout-item">
@@ -85,7 +82,6 @@ export default {
   name: 'TripleLine',
   data: () => {
     return {
-      validateAdd: false,
       products: [],
       selectedProducts: [],
       categories: [],
