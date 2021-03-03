@@ -75,7 +75,14 @@ export default {
       this.$store.commit('UPDATE_CART', product)
     },
     buy: function (products) {
-      console.log('Buy : ', products)
+      const myBuys = []
+      for (let i = 0; i < products.length; i++) {
+        const myProduct = {}
+        myProduct.product_id = products[i].id
+        myProduct.quantity = products[i].cpt
+        myBuys.push(myProduct)
+      }
+      console.log(JSON.stringify(myBuys))
     }
   }
 }

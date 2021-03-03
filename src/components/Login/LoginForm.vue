@@ -102,8 +102,9 @@ export default {
       this.sending = true
       const email = this.form.username
       const password = this.form.password
+      console.log(this.afterLogin)
       this.$store.dispatch('login', { email, password })
-        .then(() => this.$router.push('/'))
+        .then(() => this.$router.push('/account'))
         .catch(function (error) {
           console.log(error)
           _this.badLogin = true

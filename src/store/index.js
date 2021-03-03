@@ -7,6 +7,7 @@ Vue.use(Vuex)
 
 // const APIENDPOINT = 'http://localhost:8000/api/'
 const APIENDPOINT = 'https://api-arene.menopi.ch/api/'
+// const APIENDPOINT = 'http://o34z4ajegy.preview.infomaniak.website/'
 
 export default new Vuex.Store({
   plugins: [createPersistedState()],
@@ -16,7 +17,8 @@ export default new Vuex.Store({
     myTotalPrice: 0,
     status: '',
     token: localStorage.getItem('token'),
-    user: {}
+    user: {},
+    linkLogin: ''
   },
   getters: {
     myProducts: state => {

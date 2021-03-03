@@ -22,7 +22,7 @@
           </div>
   </div>
   <div class="column">
-    <form novalidate class="md-layout" @submit.prevent="validateProduct">
+    <form novalidate class="md-layout">
       <md-card class="md-layout-item">
         <md-card-header>
           <div class="md-title">{{ tmpProduct.name }}</div>

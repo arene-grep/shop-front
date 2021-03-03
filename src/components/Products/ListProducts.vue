@@ -8,7 +8,7 @@
       <div class="md-layout-item">
         <md-field>
           <label for="tcg">TCG</label>
-          <md-select  name="tcg" id="tcg">
+          <md-select name="tcg" id="tcg" v-model="selectedTCG">
             <md-option value="all">Tous</md-option>
             <md-option v-for="tcgames in tcgames" :key="tcgames.id" :value=" tcgames.name ">{{ tcgames.name }}</md-option>
           </md-select>
@@ -18,7 +18,7 @@
       <div class="md-layout-item">
         <md-field>
           <label for="product_type">Type de produit</label>
-          <md-select v-model="product_type" name="product_type" id="product_type">
+          <md-select v-model="selectedType" name="product_type" id="product_type">
             <md-option value="all">Tous</md-option>
             <md-option v-for="categories in categories" :key="categories.id" :value=" categories.name ">{{ categories.name }}</md-option>
           </md-select>
@@ -28,7 +28,7 @@
       <div class="md-layout-item">
         <md-field>
           <label for="tri">Tri</label>
-          <md-select v-model="tri" name="tri" id="tri">
+          <md-select v-model="selectedSort" name="tri" id="tri">
             <md-option value="name_asc">Par nom ordre croissant</md-option>
             <md-option value="name_desc">Par nom ordre décroissant</md-option>
             <md-option value="price_low">Par prix le moins chère</md-option>
@@ -43,7 +43,7 @@
       </md-field>
       </div>
       <div class="md-layout-item-button">
-        <md-button class="md-primary">Chercher</md-button>
+        <md-button class="md-primary" @click="searchProduct">Chercher</md-button>
       </div>
     </div>
     </div>
@@ -86,7 +86,11 @@ export default {
       products: [],
       selectedProducts: [],
       categories: [],
-      tcgames: []
+      tcgames: [],
+      selectedTCG: {},
+      selectedType: {},
+      selectedSort: {},
+      recherche: ''
     }
   },
   beforeMount () {
@@ -116,6 +120,9 @@ export default {
       })
   },
   methods: {
+    searchProduct: function () {
+      console.log(this.recherche)
+    },
     goProduct: function (id) {
       router.push({ name: 'getProduct', params: id })
     },
