@@ -62,7 +62,7 @@
                 </md-card-header>
                <md-card-actions>
                   <select id="quantity" class="form-control" name="quantity">
-                   <option v-for="i in product.stock" :key="i" :value=i @click="updateQuantity(product.id,i)">{{ i }}</option>
+                   <option v-for="i in product.stock" :key="i" :value=i @input="updateQuantity(product.id,i)" @click="updateQuantity(product.id,i)">{{ i }}</option>
                   </select>
                   <md-button class="md-icon-button" @click="addCart(product)">
                     <md-icon>shopping_cart</md-icon>
