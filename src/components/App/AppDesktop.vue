@@ -63,7 +63,6 @@
         </div>
       </md-list>
     </md-drawer>
-    <br><br><br><br><br><br><br>
   </div>
 </template>
 

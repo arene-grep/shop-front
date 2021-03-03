@@ -39,9 +39,6 @@
         </md-list-item>
       </md-list>
     </md-drawer>
-    <br><br><br><br>
-    <img src="../../assets/logo-arene.png" />
-    <br><br>
   </div>
   </div>
 </template>
