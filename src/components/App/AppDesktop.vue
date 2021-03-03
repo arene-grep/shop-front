@@ -1,5 +1,6 @@
 <template>
   <div class="page-container" >
+    <notifications position="top right" duration="1" speed="150" width="40%" max="4" style="padding:0.5%"/>
     <md-app md-waterfall md-mode="fixed-last" style="position: fixed; width: 100%; z-index: 10">
       <md-app-toolbar class="md-large md-dense md-primary">
         <div class="md-toolbar-row">

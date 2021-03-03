@@ -6,6 +6,7 @@ import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 import Axios from 'axios'
+import Notifications from 'vue-notification'
 
 Vue.prototype.$http = Axios
 const token = localStorage.getItem('token')
@@ -14,6 +15,8 @@ if (token) {
 }
 Vue.use(VueMaterial)
 Vue.config.productionTip = false
+
+Vue.use(Notifications)
 
 new Vue({
   router,
