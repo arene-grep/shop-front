@@ -7,7 +7,7 @@
           <label for="tcg">TCG</label>
           <md-select name="tcg" id="tcg" v-model="selectedTCG">
             <md-option value="all">Tous</md-option>
-            <md-option v-for="tcgames in tcgames" :key="tcgames.id" :value=" tcgames.name ">{{ tcgames.name }}</md-option>
+            <md-option v-for="tcgames in tcgames" :key="tcgames.id" :value=" tcgames.name " @change="updateTCG(tcgames.id)">{{ tcgames.name }} </md-option>
           </md-select>
         </md-field>
       </div>
@@ -44,7 +44,7 @@
       </div>
     </div>
     </div>
-    <div class="card">
+    <div class="card" id="card">
       <!-- <div v-for="product in products" :key="product.id">-->
       <!-- pour en afficher que 30 -->
       <div v-for="product in products.slice(0,30) " :key="product.id">
@@ -61,9 +61,7 @@
                  <span>PRIX : {{ product.price }} CHF</span>
                 </md-card-header>
                <md-card-actions>
-                  <select id="quantity" class="form-control" name="quantity">
-                   <option v-for="i in product.stock" :key="i" :value=i @input="updateQuantity(product.id,i)" @click="updateQuantity(product.id,i)">{{ i }}</option>
-                  </select>
+                  <input min="1" type="number" :max=product.stock size=3 value="1" @input="updateQuantity(product,$event)">
                   <md-button class="md-icon-button" @click="addCart(product)">
                     <md-icon>shopping_cart</md-icon>
                   </md-button>
@@ -94,7 +92,7 @@ export default {
     }
   },
   beforeMount () {
-    api.getProducts()
+    api.getProductsFilter(this.$route.query.trading_card_game_id)
       .done((data) => {
         this.products = data
       })
@@ -144,8 +142,16 @@ export default {
         this.validateAdd = true
       }
     },
-    updateQuantity: function (id, quant) {
-      this.quantities[id] = quant
+    updateQuantity: function (product, quant) {
+      console.log('UPDATE QUANTITY')
+      if (quant.target.value > product.stock) { quant.target.value = product.stock }
+      if (quant.target.value < 1) { quant.target.value = 1 }
+      this.quantities[product.id] = quant.target.value
+    },
+    refreshTCG: function (tcgid) {
+      console.log('kappa')
+      this.products = api.getProductsFilter(tcgid)
+      console.log('products : ' + this.products)
     }
   }
 }
