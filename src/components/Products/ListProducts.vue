@@ -133,6 +133,11 @@ export default {
         })
     },
     addCart: function (product) {
+      this.$notify({
+        title: '',
+        text: 'Article ' + product.name + ' a été ajouté au panier',
+        type: 'success'
+      })
       if (this.quantities[product.id] == null) { this.$store.commit('ADD_PRODUCT', product) } else {
         var i
         for (i = 0; i < this.quantities[product.id]; i++) { this.$store.commit('ADD_PRODUCT', product) }
