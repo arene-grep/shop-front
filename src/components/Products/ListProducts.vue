@@ -7,7 +7,7 @@
           <label for="tcg">TCG</label>
           <md-select name="tcg" id="tcg" v-model="selectedTCG">
             <md-option value="all">Tous</md-option>
-            <md-option v-for="tcgames in tcgames" :key="tcgames.id" :value=" tcgames.name ">{{ tcgames.name }}</md-option>
+            <md-option v-for="tcgames in tcgames" :key="tcgames.id" :value=" tcgames.name " @change="updateTCG(tcgames.id)">{{ tcgames.name }} </md-option>
           </md-select>
         </md-field>
       </div>
@@ -44,7 +44,7 @@
       </div>
     </div>
     </div>
-    <div class="card">
+    <div class="card" id="card">
       <!-- <div v-for="product in products" :key="product.id">-->
       <!-- pour en afficher que 30 -->
       <div v-for="product in products.slice(0,30) " :key="product.id">
@@ -94,7 +94,7 @@ export default {
     }
   },
   beforeMount () {
-    api.getProducts()
+    api.getProductsFilter(this.$route.query.trading_card_game_id)
       .done((data) => {
         this.products = data
       })
@@ -140,7 +140,13 @@ export default {
       }
     },
     updateQuantity: function (id, quant) {
+      console.log('UPDATE QUANTITY')
       this.quantities[id] = quant
+    },
+    refreshTCG: function (tcgid) {
+      console.log('kappa')
+      this.products = api.getProductsFilter(tcgid)
+      console.log('products : ' + this.products)
     }
   }
 }

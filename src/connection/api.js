@@ -11,6 +11,15 @@ function getProducts () {
   })
 }
 
+function getProductsFilter (tcg) {
+  var research
+  if (tcg == null) { research = 'products' } else { research = 'products?trading_card_game_id=' + tcg }
+  return $.ajax({
+    url: APIENDPOINT + research,
+    method: 'GET'
+  })
+}
+
 function getProduct (id) {
   return $.ajax({
     url: APIENDPOINT + 'products/' + id,
@@ -84,6 +93,7 @@ function addOrder (products) {
 
 export default {
   getProducts,
+  getProductsFilter,
   getProduct,
   getEvents,
   getEvent,

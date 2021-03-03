@@ -19,7 +19,8 @@
           <md-menu md-size="medium" md-align-trigger>
             <md-button md-menu-trigger id="tab-products" md-label="Produits">Produits</md-button>
               <md-menu-content>
-                <md-menu-item v-for="tcgames in tcgames" :key="tcgames.id" :value=" tcgames.name " to="/products">{{ tcgames.name }}</md-menu-item>
+                <md-menu-item :to="'/products'">All</md-menu-item>
+                <md-menu-item v-for="tcgames in tcgames" :key="tcgames.id" :value=" tcgames.name " :to="'/products?trading_card_game_id=' + tcgames.id">{{ tcgames.name }}</md-menu-item>
               </md-menu-content>
           </md-menu>
           <md-menu md-size="medium" md-align-trigger>
@@ -96,6 +97,7 @@
 import { mapGetters } from 'vuex'
 import router from '@/router'
 import api from '../../connection/api.js'
+// import ListProducts from '../../components/Products/ListProducts.vue'
 export default {
   name: 'LastRowFixed',
   data: () => ({
@@ -136,6 +138,11 @@ export default {
     buy: function () {
       router.push({ name: 'Cart' })
       this.showSidepanel = false
+    },
+    updateTCG: function (id) {
+      // this.$router.push('/products?trading_card_game_id=' + id)
+      // ListProducts.updateTCG(id)
+      console.log('REFRESHING')
     }
   }
 }
