@@ -2,7 +2,7 @@ import $ from 'jquery'
 
 // const APIENDPOINT = 'http://localhost:8000/api/'
 const APIENDPOINT = 'https://api-arene.menopi.ch/api/'
-// const APIENDPOINT = 'http://o34z4ajegy.preview.infomaniak.website/'
+// const APIENDPOINT = 'http://api.menopi.ch/'
 
 function getProducts () {
   return $.ajax({

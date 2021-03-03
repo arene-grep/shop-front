@@ -1,13 +1,19 @@
 <template>
   <div class="home">
-    <GetCartMobile v-if="isMobile()"></GetCartMobile>
-    <GetCart v-else></GetCart>
+    <div v-if="nbMyProducts>0">
+      <GetCartMobile v-if="isMobile()"></GetCartMobile>
+      <GetCart v-else></GetCart>
+    </div>
+    <div v-else>
+      Votre panier est vide
+    </div>
   </div>
 </template>
 
 <script>
 import GetCart from '@/components/Products/GetCart'
 import GetCartMobile from '@/components/Mobile/GetCartMobile'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Cart',
   components: { GetCartMobile, GetCart },
@@ -26,6 +32,9 @@ export default {
         return navigator.userAgent.match(toMatchItem)
       })
     }
+  },
+  computed: {
+    ...mapGetters(['nbMyProducts'])
   }
 }
 </script>

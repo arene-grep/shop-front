@@ -42,11 +42,11 @@
       <md-list class="md-triple-line">
         <md-list-item>
           <div>
+            <md-button class="md-list-action md-dense md-raised md-primary" @click="buy()">
+              Afficher le panier
+            </md-button>
           <md-button class="md-list-action md-raised md-accent" @click="empty()">
             Vider
-          </md-button>
-          <md-button class="md-list-action md-dense md-raised md-primary" @click="buy()">
-            Afficher le panier
           </md-button>
           </div>
         </md-list-item>

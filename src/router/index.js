@@ -57,6 +57,22 @@ const routes = [
     meta: {
       requiresAuth: true
     }
+  },
+  {
+    path: '/validationorder',
+    name: 'ValidationOrder',
+    component: () => import('../views/Products/OrderValidation'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/confirmationorder',
+    name: 'ConfirmationOrder',
+    component: () => import('../views/Products/OrderConfirmation'),
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 
@@ -74,6 +90,14 @@ router.beforeEach((to, from, next) => {
     }
     next('/login')
   } else {
+    if (store.getters.isLoggedIn && to.path === '/register') {
+      next('/account')
+      return
+    }
+    if (store.getters.isLoggedIn && to.path === '/login') {
+      next('/account')
+      return
+    }
     next()
   }
 })

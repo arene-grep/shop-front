@@ -83,6 +83,7 @@ export default {
         myBuys.push(myProduct)
       }
       console.log(JSON.stringify(myBuys))
+      router.push({ name: 'ValidationOrder' })
     }
   }
 }

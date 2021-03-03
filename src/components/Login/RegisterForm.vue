@@ -10,7 +10,7 @@
           <div class="md-layout md-gutter">
             <div class="md-layout-item md-small-size-100">
               <md-field :class="getValidationClass('name')">
-                <label for="user">Name</label>
+                <label>Name</label>
                 <md-input name="name" id="name" v-model="form.name" :disabled="sending" />
                 <span class="md-error" v-if="!$v.form.name.required">The name is required</span>
                 <span class="md-error" v-else-if="!$v.form.name.minlength">Invalid name</span>
@@ -21,7 +21,7 @@
           <div class="md-layout md-gutter">
             <div class="md-layout-item md-small-size-100">
               <md-field :class="getValidationClass('password')">
-                <label for="password">Password</label>
+                <label>Password</label>
                 <md-input name="password" id="password" v-model="form.password" :disabled="sending" />
                 <span class="md-error" v-if="!$v.form.password.required">The password is required</span>
                 <span class="md-error" v-else-if="!$v.form.password.minlength">Invalid password</span>
@@ -32,7 +32,7 @@
           <div class="md-layout md-gutter">
             <div class="md-layout-item md-small-size-100">
               <md-field :class="getValidationClass('email')">
-                <label for="email">Email</label>
+                <label>Email</label>
                 <md-input name="email" id="email" v-model="form.email" :disabled="sending" />
                 <span class="md-error" v-if="!$v.form.email.required">The email is required</span>
                 <span class="md-error" v-else-if="!$v.form.email.minlength">Invalid email</span>
@@ -58,6 +58,7 @@ import {
   required,
   minLength
 } from 'vuelidate/lib/validators'
+import router from '@/router'
 
 export default {
   name: 'RegisterForm',
@@ -112,13 +113,11 @@ export default {
         password: this.form.password
       }
       this.$store.dispatch('register', data)
-        .then(() => this.$router.push('/'))
+        .then(function () {
+          router.push('/')
+          window.location.reload()
+        })
         .catch(err => console.log(err))
-      // api.registerUser(this.user)
-      //   .done((data) => {
-      //     window.location.pathname = '/home'
-      //     console.log(data)
-      //   })
     },
     validateUser () {
       this.$v.$touch()

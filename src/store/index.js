@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 // const APIENDPOINT = 'http://localhost:8000/api/'
 const APIENDPOINT = 'https://api-arene.menopi.ch/api/'
-// const APIENDPOINT = 'http://o34z4ajegy.preview.infomaniak.website/'
+// const APIENDPOINT = 'http://api.menopi.ch/'
 
 export default new Vuex.Store({
   plugins: [createPersistedState()],
@@ -134,7 +134,6 @@ export default new Vuex.Store({
             axios.defaults.headers.common.Authorization = token
             commit('auth_success', token, user)
             resolve(resp)
-            window.location.reload()
           })
           .catch(err => {
             commit('auth_error', err)
