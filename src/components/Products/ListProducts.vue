@@ -61,9 +61,7 @@
                  <span>PRIX : {{ product.price }} CHF</span>
                 </md-card-header>
                <md-card-actions>
-                  <select id="quantity" class="form-control" name="quantity">
-                   <option v-for="i in product.stock" :key="i" :value=i @input="updateQuantity(product.id,i)" @click="updateQuantity(product.id,i)">{{ i }}</option>
-                  </select>
+                  <input min="1" type="number" :max=product.stock size=3 value="1" @input="updateQuantity(product,$event)">
                   <md-button class="md-icon-button" @click="addCart(product)">
                     <md-icon>shopping_cart</md-icon>
                   </md-button>
@@ -144,9 +142,11 @@ export default {
         this.validateAdd = true
       }
     },
-    updateQuantity: function (id, quant) {
+    updateQuantity: function (product, quant) {
       console.log('UPDATE QUANTITY')
-      this.quantities[id] = quant
+      if (quant.target.value > product.stock) { quant.target.value = product.stock }
+      if (quant.target.value < 1) { quant.target.value = 1 }
+      this.quantities[product.id] = quant.target.value
     },
     refreshTCG: function (tcgid) {
       console.log('kappa')
