@@ -12,17 +12,26 @@
           </md-button>
         </div>
         <div class="md-toolbar-row" style="justify-content:center; ">
-          <md-tabs class="md-primary">
-            <md-tab id="tab-home" md-label="Accueil" to="/home"></md-tab>
-            <md-tab id="tab-products" md-label="Produits" to="/products"></md-tab>
-            <md-tab id="tab-events" md-label="Événements" to="/events"></md-tab>
-            <md-tab id="tab-account" md-label="Account" to="/account"></md-tab>
-            <md-tab id="tab-logout" md-label="Logout" @click="logout" v-if="isLoggedIn" ></md-tab>
-          </md-tabs>
+          <md-menu md-size="medium" md-align-trigger>
+            <md-button md-menu-trigger id="tab-home" md-label="Accueil" to="/home">Accueil</md-button>
+          </md-menu>
+          <md-menu md-size="medium" md-align-trigger>
+            <md-button md-menu-trigger id="tab-products" md-label="Produits">Produits</md-button>
+              <md-menu-content>
+                <md-menu-item v-for="tcgames in tcgames" :key="tcgames.id" :value=" tcgames.name " to="/products">{{ tcgames.name }}</md-menu-item>
+              </md-menu-content>
+          </md-menu>
+          <md-menu md-size="medium" md-align-trigger>
+            <md-button md-menu-trigger id="tab-events" md-label="Événements" to="/events">Événements</md-button>
+          </md-menu>
+          <md-menu md-size="medium" md-align-trigger>
+            <md-button md-menu-trigger id="tab-account" md-label="Account" to="/account">Account</md-button>
+          </md-menu>
+          <md-menu md-size="medium" md-align-trigger>
+            <md-button md-menu-trigger id="tab-logout" md-label="Logout" @click="logout" v-if="isLoggedIn" >Logout</md-button>
+          </md-menu>
         </div>
       </md-app-toolbar>
-      <md-app-content>
-      </md-app-content>
     </md-app>
     <md-drawer class="md-right" :md-active.sync="showSidepanel" style="position: fixed; z-index: 10">
       <md-toolbar class="md-transparent" md-elevation="0">
@@ -62,7 +71,6 @@
         </div>
       </md-list>
     </md-drawer>
-    <br><br><br><br><br><br><br>
   </div>
 </template>
 
@@ -86,15 +94,27 @@
 
 import { mapGetters } from 'vuex'
 import router from '@/router'
+import api from '../../connection/api.js'
 export default {
   name: 'LastRowFixed',
   data: () => ({
     menuVisible: false,
-    showSidepanel: false
+    showSidepanel: false,
+    tcgames: []
   }),
   computed: {
     ...mapGetters(['myProducts', 'nbMyProducts', 'myTotalPrice']),
     isLoggedIn: function () { return this.$store.getters.isLoggedIn }
+  },
+  beforeMount () {
+    api.getTcgames()
+      .done((data) => {
+        this.tcgames = data
+      })
+      .fail(() => {
+      })
+      .always(() => {
+      })
   },
   methods: {
     logout: function () {

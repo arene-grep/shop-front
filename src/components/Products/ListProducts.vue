@@ -64,6 +64,9 @@
                  <span>PRIX : {{ product.price }} CHF</span>
                 </md-card-header>
                <md-card-actions>
+                  <select id="quantity" class="form-control" name="quantity">
+                   <option v-for="i in product.stock" :key="i" :value=i @click="updateQuantity(product.id,i)">{{ i }}</option>
+                  </select>
                   <md-button class="md-icon-button" @click="addCart(product)">
                     <md-icon>shopping_cart</md-icon>
                   </md-button>
@@ -90,7 +93,8 @@ export default {
       selectedTCG: {},
       selectedType: {},
       selectedSort: {},
-      recherche: ''
+      recherche: '',
+      quantities: []
     }
   },
   beforeMount () {
@@ -132,12 +136,15 @@ export default {
           console.log(data)
         })
     },
-    addCart: function (productsSelected) {
-      this.$store.commit('ADD_PRODUCT', productsSelected)
-      this.validateAdd = true
+    addCart: function (product) {
+      if (this.quantities[product.id] == null) { this.$store.commit('ADD_PRODUCT', product) } else {
+        var i
+        for (i = 0; i < this.quantities[product.id]; i++) { this.$store.commit('ADD_PRODUCT', product) }
+        this.validateAdd = true
+      }
     },
-    updateQuantity: function (product) {
-      if (product.cpt > product.stock) { product.cpt = product.stock }
+    updateQuantity: function (id, quant) {
+      this.quantities[id] = quant
     }
   }
 }
